@@ -10,11 +10,10 @@ import net.dzikoysk.cdn.entity.Exclude;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemFlag;
-import com.eternalcode.lobby.util.ChatUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Contextual
@@ -43,16 +42,19 @@ public class VisibilityItem {
         this.material = material;
     }
 
-    public GuiItem asGuiItem(Player player) {
-        return this.asGuiItem(player, event -> {
-        });
+    public GuiItem asGuiItem() {
+        return this.asGuiItem(event -> {});
     }
 
-    public GuiItem asGuiItem(Player player, GuiAction<InventoryClickEvent> action) {
+    public GuiItem asGuiItem(GuiAction<InventoryClickEvent> action) {
         Component name = AdventureLegacyColor.RESET_ITEM.append(this.miniMessage.deserialize(this.name));
-        List<Component> lore = this.lore.stream()
-            .map(input -> this.miniMessage.deserialize(ChatUtil.colorAndApplyPlaceholders(player, input)))
-            .toList();
+
+        List<Component> lore = new ArrayList<>();
+
+        for (String string : this.lore) {
+            Component deserialize = this.miniMessage.deserialize(string);
+            lore.add(deserialize);
+        }
 
         ItemFlag[] flags = this.itemFlags.toArray(new ItemFlag[0]);
 

@@ -1,7 +1,7 @@
 package com.eternalcode.lobby.feature.menu.serverselector;
 
 import com.eternalcode.lobby.configuration.ReloadableConfig;
-import com.eternalcode.lobby.feature.menu.ItemServerConfig;
+import com.eternalcode.lobby.feature.menu.ItemServerConfiguration;
 import net.dzikoysk.cdn.entity.Contextual;
 import net.dzikoysk.cdn.entity.Description;
 import net.dzikoysk.cdn.source.Resource;
@@ -46,10 +46,10 @@ public class ServerSelectorConfiguration implements ReloadableConfig {
             " ",
             "# Items of the lobby server selector"
         })
-        public Map<String, ItemServerConfig> items = Map.of(
-            "survival", new ItemServerConfig("Survival", 11, Material.GRASS_BLOCK, new ArrayList<>(), "survival", true, "none"),
-            "creative", new ItemServerConfig("Creative", 13, Material.BRICK, new ArrayList<>(), "creative", true, "none"),
-            "spectator", new ItemServerConfig("Spectator", 15, Material.DRAGON_EGG, new ArrayList<>(), "budowlany", true, "none"));
+        public Map<String, ItemServerConfiguration> items = Map.of(
+            "survival", new ItemServerConfiguration("Survival", 11, Material.GRASS_BLOCK, new ArrayList<>(), "survival", true, "none"),
+            "creative", new ItemServerConfiguration("Creative", 13, Material.BRICK, new ArrayList<>(), "creative", true, "none"),
+            "spectator", new ItemServerConfiguration("Spectator", 15, Material.DRAGON_EGG, new ArrayList<>(), "budowlany", true, "none"));
 
         @Contextual
         public static class FillSettings {

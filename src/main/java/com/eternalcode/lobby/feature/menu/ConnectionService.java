@@ -5,11 +5,11 @@ import com.google.common.io.ByteStreams;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-public class ConnectionManager {
+public class ConnectionService {
 
     private final Plugin plugin;
 
-    public ConnectionManager(Plugin plugin) {
+    public ConnectionService(Plugin plugin) {
         this.plugin = plugin;
     }
 

@@ -1,7 +1,7 @@
 package com.eternalcode.lobby.feature.itemjoin;
 
-import com.eternalcode.lobby.feature.menu.lobbyswitcher.LobbySwitcherGui;
-import com.eternalcode.lobby.feature.menu.serverselector.ServerSelectorGui;
+import com.eternalcode.lobby.feature.menu.lobbyswitcher.LobbySwitcherInventory;
+import com.eternalcode.lobby.feature.menu.serverselector.ServerSelectorInventory;
 import dev.rollczi.liteskullapi.SkullAPI;
 import dev.rollczi.liteskullapi.SkullData;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
@@ -29,15 +29,15 @@ public class ItemJoinController implements Listener {
     private final ItemJoinConfiguration itemJoinConfig;
     private final MiniMessage miniMessage;
 
-    private final ServerSelectorGui serverSelectorGui;
-    private final LobbySwitcherGui lobbySwitcherGui;
+    private final ServerSelectorInventory serverSelectorInventory;
+    private final LobbySwitcherInventory lobbySwitcherInventory;
     private final SkullAPI skullAPI;
 
-    public ItemJoinController(ItemJoinConfiguration itemJoinConfig, MiniMessage miniMessage, ServerSelectorGui serverSelectorGui, LobbySwitcherGui lobbySwitcherGui, SkullAPI skullAPI) {
+    public ItemJoinController(ItemJoinConfiguration itemJoinConfig, MiniMessage miniMessage, ServerSelectorInventory serverSelectorInventory, LobbySwitcherInventory lobbySwitcherInventory, SkullAPI skullAPI) {
         this.itemJoinConfig = itemJoinConfig;
         this.miniMessage = miniMessage;
-        this.serverSelectorGui = serverSelectorGui;
-        this.lobbySwitcherGui = lobbySwitcherGui;
+        this.serverSelectorInventory = serverSelectorInventory;
+        this.lobbySwitcherInventory = lobbySwitcherInventory;
         this.skullAPI = skullAPI;
     }
 
@@ -65,8 +65,8 @@ public class ItemJoinController implements Listener {
                 event.setCancelled(true);
 
                 switch (ItemAction.valueOf(itemJoin.itemAction.toString())) {
-                    case OPEN_SERVER_SELECTOR -> this.serverSelectorGui.openServerSelectorGui(player);
-                    case OPEN_LOBBY_SWITCHER -> this.lobbySwitcherGui.openLobbySwitcherGui(player);
+                    case OPEN_SERVER_SELECTOR -> this.serverSelectorInventory.openServerSelectorGui(player);
+                    case OPEN_LOBBY_SWITCHER -> this.lobbySwitcherInventory.openLobbySwitcherGui(player);
                     case COMMAND -> player.performCommand(itemJoin.command);
                 }
             }

@@ -20,21 +20,21 @@ public class VisibilityConfiguration implements ReloadableConfig {
     @Contextual
     public static class VisibilitySection implements DelaySettings {
 
-        public String hidePlayers = "<red>You have successfully hidden players!";
-        public String showPlayers = "<red>You have successfully shown players!";
+        public String hidePlayers = "<gradient:#FF0000:#FF6600>You have successfully hidden players!";
+        public String showPlayers = "<gradient:#92ff33:#00FF00>You have successfully shown players!</gradient>";
         public Duration delay = Duration.ofSeconds(3);
 
         @Description({ " ", "# Visibility item slot" })
         public int slot = 6;
 
         @Description({ " ", "# Items to hide/show players" })
-        public VisibilityItem showItem = new VisibilityItem("<green>Show players",
+        public VisibilityItem showItem = new VisibilityItem("<gradient:#92ff33:#00FF00>Show players</gradient>",
             List.of("<gray>Click to show players"),
             List.of(ItemFlag.HIDE_ATTRIBUTES),
             Material.LIME_DYE
         );
 
-        public VisibilityItem hideItem = new VisibilityItem("<red>Hide players",
+        public VisibilityItem hideItem = new VisibilityItem("<gradient:#FF0000:#FF6600>Hide players",
             List.of("<gray>Click to hide players"),
             List.of(ItemFlag.HIDE_ATTRIBUTES),
             Material.GRAY_DYE

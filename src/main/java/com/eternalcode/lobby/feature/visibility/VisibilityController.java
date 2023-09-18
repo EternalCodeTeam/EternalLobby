@@ -148,9 +148,9 @@ public class VisibilityController implements Listener {
     void setHiddenItem(Player player) {
         PlayerInventory inventory = player.getInventory();
 
-        VisibilityItem hideItem = this.visibilityConfiguration.visibility.hideItem;;
+        VisibilityItem hideItem = this.visibilityConfiguration.visibility.hideItem;
 
-        ItemStack itemStack = hideItem.asGuiItem(player).getItemStack();
+        ItemStack itemStack = hideItem.asGuiItem().getItemStack();
         ItemMeta itemMeta = itemStack.getItemMeta();
 
         if (itemMeta == null) {
@@ -170,7 +170,7 @@ public class VisibilityController implements Listener {
 
         VisibilityItem showItem = this.visibilityConfiguration.visibility.showItem;
 
-        ItemStack itemStack = showItem.asGuiItem(player).getItemStack();
+        ItemStack itemStack = showItem.asGuiItem().getItemStack();
         ItemMeta itemMeta = itemStack.getItemMeta();
 
         if (itemMeta == null) {

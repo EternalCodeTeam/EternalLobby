@@ -16,24 +16,22 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 @Contextual
-public class ItemServerConfig {
+public class ItemServerConfiguration {
 
     @Exclude
     private final MiniMessage miniMessage = MiniMessage.builder()
         .postProcessor(new AdventureLegacyColorProcessor())
         .build();
 
-    public Material material = Material.BARRIER;
+    public Material material;
 
     public String name;
 
-    public List<String> lore = Collections.singletonList("lore");
+    public List<String> lore;
 
     public boolean glowItem;
 
@@ -43,7 +41,7 @@ public class ItemServerConfig {
 
     public String server;
 
-    public ItemServerConfig(String name, int slot, Material material, List<String> lore, String server, boolean glowItem, String texture) {
+    public ItemServerConfiguration(String name, int slot, Material material, List<String> lore, String server, boolean glowItem, String texture) {
         this.name = name;
         this.slot = slot;
         this.material = material;
@@ -53,11 +51,12 @@ public class ItemServerConfig {
         this.glowItem = glowItem;
     }
 
-    public ItemServerConfig() {}
+    public ItemServerConfiguration() {
+    }
 
     public GuiItem asGuiItem(Player player, SkullAPI skullAPI, GuiAction<InventoryClickEvent> action) {
-        List<@Nullable Component> collect = this.lore.stream().map(input -> this.miniMessage.deserialize(PlaceholderAPI.setPlaceholders(player, input))).
-            collect(Collectors.toList());
+        List<@Nullable Component> collect = this.lore.stream().map(input -> this.miniMessage.deserialize(PlaceholderAPI.setPlaceholders(player, input)))
+            .toList();
 
         Component deserialize = this.miniMessage.deserialize(this.name);
 

@@ -25,9 +25,9 @@ import com.eternalcode.lobby.configuration.ConfigManager;
 import com.eternalcode.lobby.feature.menu.lobbyswitcher.LobbySwitcherConfiguration;
 import com.eternalcode.lobby.configuration.implementation.LocationConfiguration;
 import com.eternalcode.lobby.feature.image.ImageController;
-import com.eternalcode.lobby.feature.menu.ConnectionManager;
-import com.eternalcode.lobby.feature.menu.lobbyswitcher.LobbySwitcherGui;
-import com.eternalcode.lobby.feature.menu.serverselector.ServerSelectorGui;
+import com.eternalcode.lobby.feature.menu.ConnectionService;
+import com.eternalcode.lobby.feature.menu.lobbyswitcher.LobbySwitcherInventory;
+import com.eternalcode.lobby.feature.menu.serverselector.ServerSelectorInventory;
 import com.eternalcode.lobby.feature.sound.SoundController;
 import com.eternalcode.lobby.adventure.AdventureLegacyColorProcessor;
 import com.eternalcode.lobby.feature.visibility.VisibilityConfiguration;
@@ -76,9 +76,9 @@ public class LobbyPlugin extends JavaPlugin {
             .bukkitScheduler(this)
             .build();
 
-        ConnectionManager connectionManager = new ConnectionManager(this);
-        ServerSelectorGui serverSelectorGui = new ServerSelectorGui(serverSelectorConfiguration, connectionManager, miniMessage, this, skullAPI);
-        LobbySwitcherGui lobbySwitcherGui = new LobbySwitcherGui(lobbySwitcherConfig, connectionManager, this, miniMessage, skullAPI);
+        ConnectionService connectionService = new ConnectionService(this);
+        ServerSelectorInventory serverSelectorInventory = new ServerSelectorInventory(serverSelectorConfiguration, connectionService, miniMessage, this, skullAPI);
+        LobbySwitcherInventory lobbySwitcherInventory = new LobbySwitcherInventory(lobbySwitcherConfig, connectionService, this, miniMessage, skullAPI);
         VisibilityService visibilityService = new VisibilityService(server, this, notificationAnnouncer, visibilityConfiguration);
 
         // Register bungee channel
@@ -104,7 +104,7 @@ public class LobbyPlugin extends JavaPlugin {
             new PlayerJoinListener(pluginConfiguration, this.audienceProvider, miniMessage),
             new PlayerQuitListener(pluginConfiguration, miniMessage, this.audienceProvider),
             new ArmorStandListener(),
-            new PlayerPortalListener(serverSelectorGui),
+            new PlayerPortalListener(serverSelectorInventory),
 
             // Image (Join head display controller)
             new ImageController(pluginConfiguration, this),
@@ -119,7 +119,7 @@ public class LobbyPlugin extends JavaPlugin {
             new VoidController(locationConfiguration, pluginConfiguration, notificationAnnouncer),
 
             // ItemJoin
-            new ItemJoinController(itemJoinConfiguration, miniMessage, serverSelectorGui, lobbySwitcherGui, skullAPI),
+            new ItemJoinController(itemJoinConfiguration, miniMessage, serverSelectorInventory, lobbySwitcherInventory, skullAPI),
 
             // visibility
             new VisibilityController(visibilityService, visibilityConfiguration, this)

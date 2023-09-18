@@ -1,6 +1,6 @@
 package com.eternalcode.lobby.listener;
 
-import com.eternalcode.lobby.feature.menu.serverselector.ServerSelectorGui;
+import com.eternalcode.lobby.feature.menu.serverselector.ServerSelectorInventory;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -14,10 +14,10 @@ public class PlayerPortalListener implements Listener {
     private static final double KNOCKBACK_POWER = 2.5;
     private static final Location TARGET_LOCATION = new Location(null, -31, 70, 0); // wpisz tu docelowe koordynaty
 
-    public final ServerSelectorGui serverSelectorGui;
+    public final ServerSelectorInventory serverSelectorInventory;
 
-    public PlayerPortalListener(ServerSelectorGui serverSelectorGui) {
-        this.serverSelectorGui = serverSelectorGui;
+    public PlayerPortalListener(ServerSelectorInventory serverSelectorInventory) {
+        this.serverSelectorInventory = serverSelectorInventory;
     }
 
     @EventHandler
@@ -29,7 +29,7 @@ public class PlayerPortalListener implements Listener {
             Vector direction = TARGET_LOCATION.toVector().subtract(player.getLocation().toVector()).normalize();
             player.setVelocity(direction.multiply(1).multiply(KNOCKBACK_POWER).setY(0.5));
 
-            this.serverSelectorGui.openServerSelectorGui(player);
+            this.serverSelectorInventory.openServerSelectorGui(player);
 
         }
     }

@@ -1,7 +1,7 @@
-package com.eternalcode.lobby.feature.menu.lobbyswitcher;
+package com.eternalcode.lobby.feature.menu.serverselector;
 
-import com.eternalcode.lobby.feature.menu.ConnectionManager;
-import com.eternalcode.lobby.feature.menu.ItemServerConfig;
+import com.eternalcode.lobby.feature.menu.ConnectionService;
+import com.eternalcode.lobby.feature.menu.ItemServerConfiguration;
 import dev.rollczi.liteskullapi.SkullAPI;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
@@ -11,36 +11,33 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
-public class LobbySwitcherGui {
+public class ServerSelectorInventory {
 
-    private final LobbySwitcherConfiguration lobbyConfig;
-    private final ConnectionManager connectionManager;
-
+    private final ServerSelectorConfiguration selectorConfig;
+    private final ConnectionService connectionService;
+    private final MiniMessage miniMessage;
     private final Plugin plugin;
     private final BukkitScheduler scheduler;
-
-    private final MiniMessage miniMessage;
-
     private final SkullAPI skullAPI;
 
-    public LobbySwitcherGui(LobbySwitcherConfiguration lobbySwitcherConfig, ConnectionManager connectionManager, Plugin plugin, MiniMessage miniMessage, SkullAPI skullAPI) {
-        this.lobbyConfig = lobbySwitcherConfig;
-        this.connectionManager = connectionManager;
-        this.plugin = plugin;
+    public ServerSelectorInventory(ServerSelectorConfiguration serverSelectorConfiguration, ConnectionService connectionService, MiniMessage miniMessage, Plugin plugin, SkullAPI skullAPI) {
+        this.selectorConfig = serverSelectorConfiguration;
+        this.connectionService = connectionService;
         this.miniMessage = miniMessage;
+        this.plugin = plugin;
         this.scheduler = plugin.getServer().getScheduler();
         this.skullAPI = skullAPI;
     }
 
-    public void openLobbySwitcherGui(Player player) {
+    public void openServerSelectorGui(Player player) {
         scheduler.runTaskAsynchronously(plugin, () -> {
             Gui gui = Gui.gui()
-                .rows(this.lobbyConfig.settings.guiRows)
-                .title(this.miniMessage.deserialize(this.lobbyConfig.settings.guiTitle))
+                .rows(this.selectorConfig.settings.guiRows)
+                .title(this.miniMessage.deserialize(this.selectorConfig.settings.guiTitle))
                 .disableAllInteractions()
                 .create();
 
-            for (ItemServerConfig item : this.lobbyConfig.settings.items.values()) {
+            for (ItemServerConfiguration item : this.selectorConfig.settings.items.values()) {
                 GuiItem guiItem = item.asGuiItem(player, skullAPI, event -> {
                     if (item.server == null) {
                         return;
@@ -51,15 +48,15 @@ public class LobbySwitcherGui {
                         return;
                     }
 
-                    this.connectionManager.connect(player, item.server);
+                    this.connectionService.connect(player, item.server);
                     gui.close(player);
                 });
 
                 gui.setItem(item.slot, guiItem);
             }
 
-            if (this.lobbyConfig.settings.fill.enableFillItems) {
-                gui.getFiller().fill(this.lobbyConfig.settings.fill.fillItems.stream()
+            if (this.selectorConfig.settings.fill.enableFillItems) {
+                gui.getFiller().fill(this.selectorConfig.settings.fill.fillItems.stream()
                     .map(ItemBuilder::from)
                     .map(ItemBuilder::asGuiItem)
                     .toList());
@@ -67,5 +64,6 @@ public class LobbySwitcherGui {
 
             scheduler.runTask(plugin, () -> gui.open(player));
         });
+
     }
 }
