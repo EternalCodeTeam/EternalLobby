@@ -27,12 +27,12 @@ repositories {
 }
 
 dependencies {
-    // Spigot
-    compileOnly("org.spigotmc:spigot-api:1.19.3-R0.1-SNAPSHOT")
+    // spigot-api
+    compileOnly("org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT")
 
-    // Kyori Adventure
-    implementation("net.kyori:adventure-platform-bukkit:4.2.0")
-    implementation("net.kyori:adventure-text-minimessage:4.12.0")
+    // a cool library, kyori
+    implementation("net.kyori:adventure-platform-bukkit:4.3.0")
+    implementation("net.kyori:adventure-text-minimessage:4.14.0")
 
     // LiteCommands
     implementation("dev.rollczi.litecommands:bukkit:2.8.9")
@@ -56,22 +56,13 @@ dependencies {
     implementation("dev.rollczi:liteskullapi:1.3.0")
 }
 
-tasks.getByName<Test>("test") {
-    useJUnitPlatform()
-}
-
-tasks.withType<JavaCompile> {
-    options.compilerArgs = listOf("-Xlint:deprecation", "-parameters")
-    options.encoding = "UTF-8"
-}
-
 bukkit {
     main = "$mainPackage.LobbyPlugin"
-    name = "LobbySystem"
+    name = "EternalLobby"
     apiVersion = "1.13"
     prefix = "EternalLobby"
     version = "${project.version}"
-    author = "vLucky"
+    author = "EternalCodeTeam"
     depend = listOf("PlaceholderAPI")
 }
 
@@ -84,32 +75,41 @@ tasks {
     runServer {
         minecraftVersion("1.20.1")
     }
-}
 
-tasks.withType<ShadowJar> {
-    archiveFileName.set("EternalLobby ${project.version}.jar")
+    withType<ShadowJar> {
+        archiveFileName.set("EternalLobby ${project.version}.jar")
 
-    exclude(
-        "org/intellij/lang/annotations/**",
-        "org/jetbrains/annotations/**",
-        "META-INF/**",
-        "javax/**"
-    )
+        exclude(
+                "org/intellij/lang/annotations/**",
+                "org/jetbrains/annotations/**",
+                "META-INF/**",
+                "javax/**"
+        )
 
-    mergeServiceFiles()
+        mergeServiceFiles()
 
-    val prefix = "$mainPackage.libs"
+        val prefix = "$mainPackage.libs"
 
-    listOf(
-        "panda",
-        "org.panda_lang",
-        "net.dzikoysk",
-        "net.kyori",
-        "dev.rollczi",
-        "dev.triumphteam",
-        "commons-io"
-    ).forEach { pack ->
-        relocate(pack, "$prefix.$pack")
+        listOf(
+                "panda",
+                "org.panda_lang",
+                "net.dzikoysk",
+                "net.kyori",
+                "dev.rollczi",
+                "dev.triumphteam",
+                "commons-io"
+        ).forEach { relocate(it, prefix) }
+
     }
 
+
+    getByName<Test>("test") {
+        useJUnitPlatform()
+    }
+
+    withType<JavaCompile> {
+        options.compilerArgs = listOf("-Xlint:deprecation", "-parameters")
+        options.encoding = "UTF-8"
+    }
 }
+

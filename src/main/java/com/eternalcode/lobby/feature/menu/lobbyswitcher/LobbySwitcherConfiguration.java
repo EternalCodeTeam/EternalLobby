@@ -7,7 +7,7 @@ import net.dzikoysk.cdn.entity.Description;
 import net.dzikoysk.cdn.source.Resource;
 import net.dzikoysk.cdn.source.Source;
 import org.bukkit.Material;
-import com.eternalcode.lobby.config.ReloadableConfig;
+import com.eternalcode.lobby.configuration.ReloadableConfig;
 
 import java.io.File;
 import java.util.ArrayList;

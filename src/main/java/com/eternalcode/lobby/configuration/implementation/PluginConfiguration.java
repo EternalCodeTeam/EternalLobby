@@ -1,6 +1,6 @@
-package com.eternalcode.lobby.config.impl;
+package com.eternalcode.lobby.configuration.implementation;
 
-import com.eternalcode.lobby.config.ReloadableConfig;
+import com.eternalcode.lobby.configuration.ReloadableConfig;
 import com.eternalcode.lobby.delay.DelaySettings;
 import net.dzikoysk.cdn.entity.Contextual;
 import net.dzikoysk.cdn.entity.Description;

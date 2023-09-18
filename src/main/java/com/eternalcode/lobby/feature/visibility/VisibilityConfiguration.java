@@ -1,6 +1,6 @@
 package com.eternalcode.lobby.feature.visibility;
 
-import com.eternalcode.lobby.config.ReloadableConfig;
+import com.eternalcode.lobby.configuration.ReloadableConfig;
 import com.eternalcode.lobby.delay.DelaySettings;
 import net.dzikoysk.cdn.entity.Contextual;
 import net.dzikoysk.cdn.entity.Description;

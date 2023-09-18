@@ -1,12 +1,13 @@
 package com.eternalcode.lobby.feature.image;
 
-import com.eternalcode.lobby.config.impl.PluginConfiguration;
+import com.eternalcode.lobby.configuration.implementation.PluginConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitScheduler;
+import panda.utilities.StringUtils;
 import panda.utilities.text.Formatter;
 import com.eternalcode.lobby.util.ChatUtil;
 
@@ -34,7 +35,9 @@ public class ImageController implements Listener {
         Player player = event.getPlayer();
 
         if (!this.pluginConfiguration.cleanAtJoin) {
-            ChatUtil.clearChat(player);
+            for (int lineIndex = 0; lineIndex < 255; lineIndex++) {
+                player.sendMessage(StringUtils.EMPTY);
+            }
         }
 
         if (this.pluginConfiguration.enableWelcomeMessage && !this.pluginConfiguration.welcomeMessageHeadDisplay) {
@@ -82,9 +85,9 @@ public class ImageController implements Listener {
 
             String rawApiUrl = formatter.format(this.pluginConfiguration.apiUrl);
 
-            URL URL = new URL(rawApiUrl);
+            URL url = new URL(rawApiUrl);
 
-            HttpURLConnection connection = (HttpURLConnection) URL.openConnection();
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36");
             BufferedImage BufferedImage = ImageIO.read(connection.getInputStream());
 

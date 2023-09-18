@@ -1,7 +1,7 @@
 package com.eternalcode.lobby.voidteleport;
 
-import com.eternalcode.lobby.config.impl.LocationConfiguration;
-import com.eternalcode.lobby.config.impl.PluginConfiguration;
+import com.eternalcode.lobby.configuration.implementation.LocationConfiguration;
+import com.eternalcode.lobby.configuration.implementation.PluginConfiguration;
 import com.eternalcode.lobby.notification.NotificationAnnouncer;
 import com.eternalcode.lobby.position.Position;
 import com.eternalcode.lobby.position.PositionAdapter;

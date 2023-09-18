@@ -1,8 +1,8 @@
-package com.eternalcode.lobby.config.impl;
+package com.eternalcode.lobby.configuration.implementation;
 
 import net.dzikoysk.cdn.source.Resource;
 import net.dzikoysk.cdn.source.Source;
-import com.eternalcode.lobby.config.ReloadableConfig;
+import com.eternalcode.lobby.configuration.ReloadableConfig;
 import com.eternalcode.lobby.position.Position;
 
 import java.io.File;

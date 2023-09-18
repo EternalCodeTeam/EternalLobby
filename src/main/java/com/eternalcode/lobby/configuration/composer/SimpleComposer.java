@@ -1,4 +1,4 @@
-package com.eternalcode.lobby.config.composer;
+package com.eternalcode.lobby.configuration.composer;
 
 import net.dzikoysk.cdn.serdes.Composer;
 import net.dzikoysk.cdn.serdes.SimpleDeserializer;

@@ -1,7 +1,7 @@
 package com.eternalcode.lobby.feature.visibility;
 
-import com.eternalcode.lobby.util.legacy.Legacy;
-import com.eternalcode.lobby.util.legacy.LegacyProcessor;
+import com.eternalcode.lobby.adventure.AdventureLegacyColor;
+import com.eternalcode.lobby.adventure.AdventureLegacyColorProcessor;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.components.GuiAction;
 import dev.triumphteam.gui.guis.GuiItem;
@@ -22,7 +22,7 @@ public class VisibilityItem {
 
     @Exclude
     private final MiniMessage miniMessage = MiniMessage.builder()
-        .postProcessor(new LegacyProcessor())
+        .postProcessor(new AdventureLegacyColorProcessor())
         .build();
 
     public String name;
@@ -49,7 +49,7 @@ public class VisibilityItem {
     }
 
     public GuiItem asGuiItem(Player player, GuiAction<InventoryClickEvent> action) {
-        Component name = Legacy.RESET_ITEM.append(this.miniMessage.deserialize(this.name));
+        Component name = AdventureLegacyColor.RESET_ITEM.append(this.miniMessage.deserialize(this.name));
         List<Component> lore = this.lore.stream()
             .map(input -> this.miniMessage.deserialize(ChatUtil.colorAndApplyPlaceholders(player, input)))
             .toList();

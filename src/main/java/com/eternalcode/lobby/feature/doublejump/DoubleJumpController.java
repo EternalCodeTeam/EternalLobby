@@ -1,6 +1,6 @@
 package com.eternalcode.lobby.feature.doublejump;
 
-import com.eternalcode.lobby.config.impl.PluginConfiguration;
+import com.eternalcode.lobby.configuration.implementation.PluginConfiguration;
 import com.eternalcode.lobby.delay.Delay;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;

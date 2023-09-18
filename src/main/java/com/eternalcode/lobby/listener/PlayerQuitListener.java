@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import panda.std.Option;
 import panda.utilities.text.Formatter;
-import com.eternalcode.lobby.config.impl.PluginConfiguration;
+import com.eternalcode.lobby.configuration.implementation.PluginConfiguration;
 import com.eternalcode.lobby.util.RandomUtil;
 
 public class PlayerQuitListener implements Listener {

@@ -1,7 +1,7 @@
 package com.eternalcode.lobby.feature.sound;
 
 
-import com.eternalcode.lobby.config.impl.PluginConfiguration;
+import com.eternalcode.lobby.configuration.implementation.PluginConfiguration;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

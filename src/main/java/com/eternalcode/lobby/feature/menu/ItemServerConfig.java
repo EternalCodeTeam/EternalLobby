@@ -1,6 +1,6 @@
 package com.eternalcode.lobby.feature.menu;
 
-import com.eternalcode.lobby.util.legacy.LegacyProcessor;
+import com.eternalcode.lobby.adventure.AdventureLegacyColorProcessor;
 import dev.rollczi.liteskullapi.SkullAPI;
 import dev.rollczi.liteskullapi.SkullData;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
@@ -26,7 +26,7 @@ public class ItemServerConfig {
 
     @Exclude
     private final MiniMessage miniMessage = MiniMessage.builder()
-        .postProcessor(new LegacyProcessor())
+        .postProcessor(new AdventureLegacyColorProcessor())
         .build();
 
     public Material material = Material.BARRIER;

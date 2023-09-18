@@ -1,4 +1,4 @@
-package com.eternalcode.lobby.config;
+package com.eternalcode.lobby.configuration;
 
 import net.dzikoysk.cdn.source.Resource;
 

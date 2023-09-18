@@ -5,14 +5,10 @@ import com.google.common.base.Stopwatch;
 import dev.rollczi.litecommands.command.execute.Execute;
 import dev.rollczi.litecommands.command.permission.Permission;
 import dev.rollczi.litecommands.command.route.Route;
-import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.platform.AudienceProvider;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import com.eternalcode.lobby.config.ConfigManager;
-import com.eternalcode.lobby.config.impl.LocationConfiguration;
+import com.eternalcode.lobby.configuration.ConfigManager;
+import com.eternalcode.lobby.configuration.implementation.LocationConfiguration;
 import com.eternalcode.lobby.position.PositionAdapter;
 
 import java.util.concurrent.TimeUnit;

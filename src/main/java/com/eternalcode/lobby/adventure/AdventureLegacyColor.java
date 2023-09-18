@@ -1,4 +1,4 @@
-package com.eternalcode.lobby.util.legacy;
+package com.eternalcode.lobby.adventure;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
@@ -9,7 +9,7 @@ import panda.std.stream.PandaStream;
 
 import java.util.List;
 
-public final class Legacy {
+public final class AdventureLegacyColor {
 
     public static final GsonComponentSerializer GSON_SERIALIZER = GsonComponentSerializer.gson();
 
@@ -27,7 +27,7 @@ public final class Legacy {
         .useUnusualXRepeatedCharacterHexFormat()
         .build();
 
-    private Legacy() {
+    private AdventureLegacyColor() {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
 
@@ -36,6 +36,6 @@ public final class Legacy {
     }
 
     public static List<Component> component(Iterable<String> texts) {
-        return PandaStream.of(texts).map(Legacy::component).toList();
+        return PandaStream.of(texts).map(AdventureLegacyColor::component).toList();
     }
 }

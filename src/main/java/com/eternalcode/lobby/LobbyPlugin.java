@@ -1,7 +1,7 @@
 package com.eternalcode.lobby;
 
 import com.eternalcode.lobby.feature.itemjoin.ItemJoinConfiguration;
-import com.eternalcode.lobby.config.impl.PluginConfiguration;
+import com.eternalcode.lobby.configuration.implementation.PluginConfiguration;
 import com.eternalcode.lobby.listener.*;
 import com.eternalcode.lobby.feature.menu.serverselector.ServerSelectorConfiguration;
 import com.eternalcode.lobby.feature.doublejump.DoubleJumpController;
@@ -21,15 +21,15 @@ import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import com.eternalcode.lobby.config.ConfigManager;
+import com.eternalcode.lobby.configuration.ConfigManager;
 import com.eternalcode.lobby.feature.menu.lobbyswitcher.LobbySwitcherConfiguration;
-import com.eternalcode.lobby.config.impl.LocationConfiguration;
+import com.eternalcode.lobby.configuration.implementation.LocationConfiguration;
 import com.eternalcode.lobby.feature.image.ImageController;
 import com.eternalcode.lobby.feature.menu.ConnectionManager;
 import com.eternalcode.lobby.feature.menu.lobbyswitcher.LobbySwitcherGui;
 import com.eternalcode.lobby.feature.menu.serverselector.ServerSelectorGui;
 import com.eternalcode.lobby.feature.sound.SoundController;
-import com.eternalcode.lobby.util.legacy.LegacyProcessor;
+import com.eternalcode.lobby.adventure.AdventureLegacyColorProcessor;
 import com.eternalcode.lobby.feature.visibility.VisibilityConfiguration;
 import com.eternalcode.lobby.feature.visibility.VisibilityController;
 import com.eternalcode.lobby.feature.visibility.VisibilityService;
@@ -68,7 +68,7 @@ public class LobbyPlugin extends JavaPlugin {
 
         // Setup managers and other stuff
         this.audienceProvider = BukkitAudiences.create(this);
-        MiniMessage miniMessage = MiniMessage.builder().postProcessor(new LegacyProcessor()).build();
+        MiniMessage miniMessage = MiniMessage.builder().postProcessor(new AdventureLegacyColorProcessor()).build();
         NotificationAnnouncer notificationAnnouncer = new NotificationAnnouncer(this.audienceProvider, miniMessage);
 
         this.skullAPI = LiteSkullFactory.builder()

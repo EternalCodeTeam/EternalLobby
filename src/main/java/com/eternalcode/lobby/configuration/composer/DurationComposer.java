@@ -1,4 +1,4 @@
-package com.eternalcode.lobby.config.composer;
+package com.eternalcode.lobby.configuration.composer;
 
 import panda.std.Result;
 

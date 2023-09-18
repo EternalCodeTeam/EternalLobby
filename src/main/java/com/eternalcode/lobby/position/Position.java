@@ -11,9 +11,9 @@ import java.util.regex.Pattern;
  */
 public final class Position {
 
-    public final static String NONE_WORLD = "__NONE__";
+    public static final String NONE_WORLD = "__NONE__";
 
-    private final static Pattern PARSE_FORMAT = Pattern.compile("Position\\{x=(?<x>-?[\\d.]+), y=(?<y>-?[\\d.]+), z=(?<z>-?[\\d.]+), yaw=(?<yaw>-?[\\d.]+), pitch=(?<pitch>-?[\\d.]+), world='(?<world>.+)'}");
+    private static final Pattern PARSE_FORMAT = Pattern.compile("Position\\{x=(?<x>-?[\\d.]+), y=(?<y>-?[\\d.]+), z=(?<z>-?[\\d.]+), yaw=(?<yaw>-?[\\d.]+), pitch=(?<pitch>-?[\\d.]+), world='(?<world>.+)'}");
 
     private final double x;
     private final double y;
