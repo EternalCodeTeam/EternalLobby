@@ -11,6 +11,7 @@ import net.dzikoysk.cdn.entity.Contextual;
 import net.dzikoysk.cdn.entity.Exclude;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -41,13 +42,16 @@ public class ItemServerConfiguration {
 
     public String server;
 
-    public ItemServerConfiguration(String name, int slot, Material material, List<String> lore, String server, boolean glowItem, String texture) {
+    public String command;
+
+    public ItemServerConfiguration(String name, int slot, Material material, List<String> lore, String server, boolean glowItem, String texture, String command) {
         this.name = name;
         this.slot = slot;
         this.material = material;
         this.lore = lore;
         this.server = server;
         this.texture = texture;
+        this.command = command;
         this.glowItem = glowItem;
     }
 

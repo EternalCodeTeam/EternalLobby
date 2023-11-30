@@ -37,6 +37,11 @@ public class LobbySwitcherInventory {
             Gui gui = Gui.gui()
                 .rows(this.lobbyConfig.settings.guiRows)
                 .title(this.miniMessage.deserialize(this.lobbyConfig.settings.guiTitle))
+                .disableOtherActions()
+                .disableItemPlace()
+                .disableItemSwap()
+                .disableItemTake()
+                .disableItemDrop()
                 .disableAllInteractions()
                 .create();
 

@@ -44,7 +44,7 @@ dependencies {
     compileOnly("me.clip:placeholderapi:2.11.2")
 
     // triumph gui
-    implementation("dev.triumphteam:triumph-gui:3.1.4")
+    implementation("dev.triumphteam:triumph-gui:3.1.7")
 
     // commons
     implementation("commons-io:commons-io:2.11.0")

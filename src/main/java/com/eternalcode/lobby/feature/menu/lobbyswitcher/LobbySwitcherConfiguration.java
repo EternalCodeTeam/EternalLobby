@@ -48,13 +48,13 @@ public class LobbySwitcherConfiguration implements ReloadableConfig {
             "# Items of the lobby switcher menu"
         })
         public Map<Integer, ItemServerConfiguration> items = ImmutableMap.of(
-            1, new ItemServerConfiguration("Lobby #0", 10, Material.QUARTZ_BLOCK, new ArrayList<>(), "lobby0", true, "none"),
-            2, new ItemServerConfiguration("Lobby #1", 11, Material.QUARTZ_BLOCK, new ArrayList<>(), "lobby1", true, "none"),
-            3, new ItemServerConfiguration("Lobby #2", 12, Material.QUARTZ_BLOCK, new ArrayList<>(), "lobby2", true, "none"),
-            4, new ItemServerConfiguration("Lobby #3", 13, Material.QUARTZ_BLOCK, new ArrayList<>(), "lobby3", true, "none"),
-            5, new ItemServerConfiguration("Lobby #4", 14, Material.QUARTZ_BLOCK, new ArrayList<>(), "lobby4", true, "none"),
-            6, new ItemServerConfiguration("Lobby #5", 15, Material.QUARTZ_BLOCK, new ArrayList<>(), "lobby5", true, "none"),
-            7, new ItemServerConfiguration("Lobby #6", 16, Material.QUARTZ_BLOCK, new ArrayList<>(), "lobby6", true, "none"));
+            1, new ItemServerConfiguration("Lobby #0", 10, Material.QUARTZ_BLOCK, new ArrayList<>(), "lobby0", true, "none", ""),
+            2, new ItemServerConfiguration("Lobby #1", 11, Material.QUARTZ_BLOCK, new ArrayList<>(), "lobby1", true, "none", ""),
+            3, new ItemServerConfiguration("Lobby #2", 12, Material.QUARTZ_BLOCK, new ArrayList<>(), "lobby2", true, "none", ""),
+            4, new ItemServerConfiguration("Lobby #3", 13, Material.QUARTZ_BLOCK, new ArrayList<>(), "lobby3", true, "none", ""),
+            5, new ItemServerConfiguration("Lobby #4", 14, Material.QUARTZ_BLOCK, new ArrayList<>(), "lobby4", true, "none", ""),
+            6, new ItemServerConfiguration("Lobby #5", 15, Material.QUARTZ_BLOCK, new ArrayList<>(), "lobby5", true, "none", ""),
+            7, new ItemServerConfiguration("Lobby #6", 16, Material.QUARTZ_BLOCK, new ArrayList<>(), "lobby6", true, "none", ""));
 
         @Contextual
         public static class FillSettings {

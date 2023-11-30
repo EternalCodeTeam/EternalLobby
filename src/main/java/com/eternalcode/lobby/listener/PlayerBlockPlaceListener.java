@@ -11,8 +11,10 @@ public class PlayerBlockPlaceListener implements Listener {
     void onPlayerBlockPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
 
-        if (!player.hasPermission("lobby.place")) {
-            event.setCancelled(true);
+        if (player.hasPermission("lobby.bypass")) {
+            event.setCancelled(false);
+            return;
         }
+        event.setCancelled(true);
     }
 }

@@ -47,9 +47,9 @@ public class ServerSelectorConfiguration implements ReloadableConfig {
             "# Items of the lobby server selector"
         })
         public Map<String, ItemServerConfiguration> items = Map.of(
-            "survival", new ItemServerConfiguration("Survival", 11, Material.GRASS_BLOCK, new ArrayList<>(), "survival", true, "none"),
-            "creative", new ItemServerConfiguration("Creative", 13, Material.BRICK, new ArrayList<>(), "creative", true, "none"),
-            "spectator", new ItemServerConfiguration("Spectator", 15, Material.DRAGON_EGG, new ArrayList<>(), "budowlany", true, "none"));
+            "survival", new ItemServerConfiguration("Survival", 11, Material.GRASS_BLOCK, new ArrayList<>(), "survival", true, "none", ""),
+            "creative", new ItemServerConfiguration("Creative", 13, Material.BRICK, new ArrayList<>(), "creative", true, "none", ""),
+            "spectator", new ItemServerConfiguration("Spectator", 15, Material.DRAGON_EGG, new ArrayList<>(), "budowlany", true, "none", ""));
 
         @Contextual
         public static class FillSettings {

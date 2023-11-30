@@ -1,5 +1,6 @@
 package com.eternalcode.lobby;
 
+import com.eternalcode.lobby.feature.menu.skinchange.SkinChangeInventory;
 import com.eternalcode.lobby.notification.NotificationAnnouncer;
 import com.google.common.base.Stopwatch;
 import dev.rollczi.litecommands.command.execute.Execute;

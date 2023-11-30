@@ -1,7 +1,10 @@
 package com.eternalcode.lobby;
 
+import com.eternalcode.lobby.commands.SkinCommand;
 import com.eternalcode.lobby.feature.itemjoin.ItemJoinConfiguration;
 import com.eternalcode.lobby.configuration.implementation.PluginConfiguration;
+import com.eternalcode.lobby.feature.menu.skinchange.SkinChangeConfiguration;
+import com.eternalcode.lobby.feature.menu.skinchange.SkinChangeInventory;
 import com.eternalcode.lobby.listener.*;
 import com.eternalcode.lobby.feature.menu.serverselector.ServerSelectorConfiguration;
 import com.eternalcode.lobby.feature.doublejump.DoubleJumpController;
@@ -55,6 +58,7 @@ public class LobbyPlugin extends JavaPlugin {
         PluginConfiguration pluginConfiguration = new PluginConfiguration();
         LocationConfiguration locationConfiguration = new LocationConfiguration();
         LobbySwitcherConfiguration lobbySwitcherConfig = new LobbySwitcherConfiguration();
+        SkinChangeConfiguration skinChangeConfiguration = new SkinChangeConfiguration();
         ItemJoinConfiguration itemJoinConfiguration = new ItemJoinConfiguration();
         ServerSelectorConfiguration serverSelectorConfiguration = new ServerSelectorConfiguration();
         VisibilityConfiguration visibilityConfiguration = new VisibilityConfiguration();
@@ -64,6 +68,7 @@ public class LobbyPlugin extends JavaPlugin {
         configManager.load(lobbySwitcherConfig);
         configManager.load(itemJoinConfiguration);
         configManager.load(serverSelectorConfiguration);
+        configManager.load(skinChangeConfiguration);
         configManager.load(visibilityConfiguration);
 
         // Setup managers and other stuff
@@ -77,6 +82,7 @@ public class LobbyPlugin extends JavaPlugin {
             .build();
 
         ConnectionService connectionService = new ConnectionService(this);
+        SkinChangeInventory skinChangeInventory = new SkinChangeInventory(skinChangeConfiguration, connectionService, this, server.getScheduler(), miniMessage, skullAPI);
         ServerSelectorInventory serverSelectorInventory = new ServerSelectorInventory(serverSelectorConfiguration, connectionService, miniMessage, this, skullAPI);
         LobbySwitcherInventory lobbySwitcherInventory = new LobbySwitcherInventory(lobbySwitcherConfig, connectionService, this, miniMessage, skullAPI);
         VisibilityService visibilityService = new VisibilityService(server, this, notificationAnnouncer, visibilityConfiguration);
@@ -89,7 +95,8 @@ public class LobbyPlugin extends JavaPlugin {
             .contextualBind(Player.class, new BukkitOnlyPlayerContextual<>("This command is only available for players!"))
 
             .commandInstance(
-                new LobbyCommand(configManager, locationConfiguration, notificationAnnouncer)
+                new LobbyCommand(configManager, locationConfiguration, notificationAnnouncer),
+                new SkinCommand(skinChangeInventory)
             )
             .register();
 
@@ -101,9 +108,10 @@ public class LobbyPlugin extends JavaPlugin {
             new PlayerDamageListener(),
             new PlayerDeathListener(),
             new PlayerFoodListener(),
-            new PlayerJoinListener(pluginConfiguration, this.audienceProvider, miniMessage),
+            new PlayerJoinListener(pluginConfiguration, locationConfiguration, this.audienceProvider, miniMessage),
             new PlayerQuitListener(pluginConfiguration, miniMessage, this.audienceProvider),
             new ArmorStandListener(),
+            new PlayerInventoryClickListener(),
             new PlayerPortalListener(serverSelectorInventory),
 
             // Image (Join head display controller)
