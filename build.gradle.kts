@@ -20,15 +20,19 @@ repositories {
     maven { url = uri("https://repo.eternalcode.pl/releases") }
     maven { url = uri("https://repo.extendedclip.com/content/repositories/placeholderapi/") }
     maven { url = uri("https://jitpack.io/") }
-    maven { url = uri("https://repo.kryptonmc.org/releases") }
-    maven { url = uri("https://repo.ranull.com/maven/external") }
-    maven { url = uri("https://repo.unnamed.team/repository/unnamed-public/") }
     maven { url = uri("https://repository.minecodes.pl/releases") }
 }
 
 dependencies {
     // spigot-api
-    compileOnly("org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT")
+    val spigotApiVersion = "1.20.1-R0.1-SNAPSHOT"
+    compileOnly("org.spigotmc:spigot-api:${spigotApiVersion}")
+    testImplementation("org.spigotmc:spigot-api:${spigotApiVersion}")
+
+    // okaeri configs
+    val okaeriConfigsVersion = "5.0.0-beta.5"
+    implementation("eu.okaeri:okaeri-configs-yaml-snakeyaml:${okaeriConfigsVersion}")
+    implementation("eu.okaeri:okaeri-configs-serdes-commons:${okaeriConfigsVersion}")
 
     // a cool library, kyori
     implementation("net.kyori:adventure-platform-bukkit:4.3.0")
@@ -36,9 +40,6 @@ dependencies {
 
     // LiteCommands
     implementation("dev.rollczi.litecommands:bukkit:2.8.9")
-
-    // Cdn
-    implementation("net.dzikoysk:cdn:1.14.3")
 
     // ExtendedClip
     compileOnly("me.clip:placeholderapi:2.11.2")

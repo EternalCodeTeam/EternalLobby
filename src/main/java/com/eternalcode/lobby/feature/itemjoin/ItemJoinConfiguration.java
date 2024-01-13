@@ -1,19 +1,19 @@
 package com.eternalcode.lobby.feature.itemjoin;
 
-import com.eternalcode.lobby.configuration.ReloadableConfig;
-import net.dzikoysk.cdn.entity.Contextual;
-import net.dzikoysk.cdn.entity.Description;
-import net.dzikoysk.cdn.source.Resource;
-import net.dzikoysk.cdn.source.Source;
+import eu.okaeri.configs.OkaeriConfig;
+import eu.okaeri.configs.annotation.Comment;
+import eu.okaeri.configs.annotation.NameModifier;
+import eu.okaeri.configs.annotation.NameStrategy;
+import eu.okaeri.configs.annotation.Names;
 import org.bukkit.Material;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class ItemJoinConfiguration implements ReloadableConfig {
+@Names(modifier = NameModifier.TO_LOWER_CASE, strategy = NameStrategy.HYPHEN_CASE)
+public class ItemJoinConfiguration extends OkaeriConfig {
 
-    @Description({
+    @Comment({
         " ",
         "# Item join configuration",
         "# ItemJoin Action: OPEN_LOBBY_SWITCHER, OPEN_SERVER_SELECTOR, COMMAND, NONE",
@@ -24,13 +24,7 @@ public class ItemJoinConfiguration implements ReloadableConfig {
 
     public Settings settings = new Settings();
 
-    @Override
-    public Resource resource(File folder) {
-        return Source.of(folder, "item-join.yml");
-    }
-
-    @Contextual
-    public static class Settings {
+    public static class Settings extends OkaeriConfig {
         public Map<Integer, ItemJoin> slots = Map.of(
             1, new ItemJoin("<gray>Wybór trybu <dark_gray>(Kliknij prawym)", 0, Material.COMPASS, new ArrayList<>(), "", ItemAction.OPEN_SERVER_SELECTOR, "none"),
             2, new ItemJoin("<gray>Wybór Lobby <dark_gray>(Kliknij prawym)", 8, Material.NETHER_STAR, new ArrayList<>(), "", ItemAction.OPEN_LOBBY_SWITCHER, "none"));

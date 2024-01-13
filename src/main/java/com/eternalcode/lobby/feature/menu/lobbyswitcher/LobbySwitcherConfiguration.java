@@ -2,48 +2,43 @@ package com.eternalcode.lobby.feature.menu.lobbyswitcher;
 
 import com.eternalcode.lobby.feature.menu.ItemServerConfiguration;
 import com.google.common.collect.ImmutableMap;
-import net.dzikoysk.cdn.entity.Contextual;
-import net.dzikoysk.cdn.entity.Description;
-import net.dzikoysk.cdn.source.Resource;
-import net.dzikoysk.cdn.source.Source;
+import eu.okaeri.configs.OkaeriConfig;
+import eu.okaeri.configs.annotation.Comment;
+import eu.okaeri.configs.annotation.NameModifier;
+import eu.okaeri.configs.annotation.NameStrategy;
+import eu.okaeri.configs.annotation.Names;
 import org.bukkit.Material;
-import com.eternalcode.lobby.configuration.ReloadableConfig;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class LobbySwitcherConfiguration implements ReloadableConfig {
+@Names(modifier = NameModifier.TO_LOWER_CASE, strategy = NameStrategy.HYPHEN_CASE)
+public class LobbySwitcherConfiguration extends OkaeriConfig {
 
-    @Description({
+    @Comment({
         "# ",
         "# LobbySwitcher configuration",
         "# "
     })
     public Settings settings = new Settings();
 
-    @Override
-    public Resource resource(File folder) {
-        return Source.of(folder, "lobby-switcher.yml");
-    }
 
-    @Contextual
-    public static class Settings {
+    public static class Settings extends OkaeriConfig {
         public FillSettings fill = new FillSettings();
 
-        @Description({
+        @Comment({
             "# Title of the lobby switcher menu"
         })
         public String guiTitle = "Wybór lobby:";
 
-        @Description({
+        @Comment({
             " ",
             "# Rows of the lobby switcher menu"
         })
         public int guiRows = 3;
 
-        @Description({
+        @Comment({
             " ",
             "# Items of the lobby switcher menu"
         })
@@ -56,9 +51,9 @@ public class LobbySwitcherConfiguration implements ReloadableConfig {
             6, new ItemServerConfiguration("Lobby #5", 15, Material.QUARTZ_BLOCK, new ArrayList<>(), "lobby5", true, "none"),
             7, new ItemServerConfiguration("Lobby #6", 16, Material.QUARTZ_BLOCK, new ArrayList<>(), "lobby6", true, "none"));
 
-        @Contextual
-        public static class FillSettings {
-            @Description({
+
+        public static class FillSettings extends OkaeriConfig {
+            @Comment({
                 " ",
                 "# Fill item options"
             })

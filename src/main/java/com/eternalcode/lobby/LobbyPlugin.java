@@ -1,5 +1,6 @@
 package com.eternalcode.lobby;
 
+import com.eternalcode.lobby.configuration.ConfigurationService;
 import com.eternalcode.lobby.feature.itemjoin.ItemJoinConfiguration;
 import com.eternalcode.lobby.configuration.implementation.PluginConfiguration;
 import com.eternalcode.lobby.listener.*;
@@ -21,7 +22,6 @@ import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import com.eternalcode.lobby.configuration.ConfigManager;
 import com.eternalcode.lobby.feature.menu.lobbyswitcher.LobbySwitcherConfiguration;
 import com.eternalcode.lobby.configuration.implementation.LocationConfiguration;
 import com.eternalcode.lobby.feature.image.ImageController;
@@ -34,6 +34,7 @@ import com.eternalcode.lobby.feature.visibility.VisibilityConfiguration;
 import com.eternalcode.lobby.feature.visibility.VisibilityController;
 import com.eternalcode.lobby.feature.visibility.VisibilityService;
 
+import java.io.File;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
@@ -49,22 +50,14 @@ public class LobbyPlugin extends JavaPlugin {
         Stopwatch started = Stopwatch.createStarted();
         Server server = this.getServer();
 
-        // Setup configs
-        ConfigManager configManager = new ConfigManager(this.getDataFolder());
-
-        PluginConfiguration pluginConfiguration = new PluginConfiguration();
-        LocationConfiguration locationConfiguration = new LocationConfiguration();
-        LobbySwitcherConfiguration lobbySwitcherConfig = new LobbySwitcherConfiguration();
-        ItemJoinConfiguration itemJoinConfiguration = new ItemJoinConfiguration();
-        ServerSelectorConfiguration serverSelectorConfiguration = new ServerSelectorConfiguration();
-        VisibilityConfiguration visibilityConfiguration = new VisibilityConfiguration();
-
-        configManager.load(pluginConfiguration);
-        configManager.load(locationConfiguration);
-        configManager.load(lobbySwitcherConfig);
-        configManager.load(itemJoinConfiguration);
-        configManager.load(serverSelectorConfiguration);
-        configManager.load(visibilityConfiguration);
+        ConfigurationService configurationService = new ConfigurationService();
+        File dataFolder = this.getDataFolder();
+        PluginConfiguration pluginConfig = configurationService.create(PluginConfiguration.class, new File(dataFolder, "config.yml"));
+        LocationConfiguration locationConfig = configurationService.create(LocationConfiguration.class, new File(dataFolder, "locations.yml"));
+        LobbySwitcherConfiguration lobbySwitcherConfig = configurationService.create(LobbySwitcherConfiguration.class, new File(dataFolder, "lobby-switcher.yml"));
+        ItemJoinConfiguration itemJoinConfig = configurationService.create(ItemJoinConfiguration.class, new File(dataFolder, "item-join.yml"));
+        ServerSelectorConfiguration serverSelectorConfig = configurationService.create(ServerSelectorConfiguration.class, new File(dataFolder, "server-selector.yml"));
+        VisibilityConfiguration visibilityConfig = configurationService.create(VisibilityConfiguration.class, new File(dataFolder, "visibility.yml"));
 
         // Setup managers and other stuff
         this.audienceProvider = BukkitAudiences.create(this);
@@ -77,9 +70,9 @@ public class LobbyPlugin extends JavaPlugin {
             .build();
 
         ConnectionService connectionService = new ConnectionService(this);
-        ServerSelectorInventory serverSelectorInventory = new ServerSelectorInventory(serverSelectorConfiguration, connectionService, miniMessage, this, skullAPI);
+        ServerSelectorInventory serverSelectorInventory = new ServerSelectorInventory(serverSelectorConfig, connectionService, miniMessage, this, skullAPI);
         LobbySwitcherInventory lobbySwitcherInventory = new LobbySwitcherInventory(lobbySwitcherConfig, connectionService, this, miniMessage, skullAPI);
-        VisibilityService visibilityService = new VisibilityService(server, this, notificationAnnouncer, visibilityConfiguration);
+        VisibilityService visibilityService = new VisibilityService(server, this, notificationAnnouncer, visibilityConfig);
 
         // Register bungee channel
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
@@ -89,7 +82,7 @@ public class LobbyPlugin extends JavaPlugin {
             .contextualBind(Player.class, new BukkitOnlyPlayerContextual<>("This command is only available for players!"))
 
             .commandInstance(
-                new LobbyCommand(configManager, locationConfiguration, notificationAnnouncer)
+                new LobbyCommand(configurationService, locationConfig, notificationAnnouncer)
             )
             .register();
 
@@ -101,28 +94,28 @@ public class LobbyPlugin extends JavaPlugin {
             new PlayerDamageListener(),
             new PlayerDeathListener(),
             new PlayerFoodListener(),
-            new PlayerJoinListener(pluginConfiguration, this.audienceProvider, miniMessage),
-            new PlayerQuitListener(pluginConfiguration, miniMessage, this.audienceProvider),
+            new PlayerJoinListener(pluginConfig, this.audienceProvider, miniMessage),
+            new PlayerQuitListener(pluginConfig, miniMessage, this.audienceProvider),
             new ArmorStandListener(),
             new PlayerPortalListener(serverSelectorInventory),
 
             // Image (Join head display controller)
-            new ImageController(pluginConfiguration, this),
+            new ImageController(pluginConfig, this),
 
             // DoubleJump
-            new DoubleJumpController(pluginConfiguration),
+            new DoubleJumpController(pluginConfig),
 
             // Awesome sound additions
-            new SoundController(pluginConfiguration, server),
+            new SoundController(pluginConfig, server),
 
             // Anti Void Controller
-            new VoidController(locationConfiguration, pluginConfiguration, notificationAnnouncer),
+            new VoidController(locationConfig, pluginConfig, notificationAnnouncer),
 
             // ItemJoin
-            new ItemJoinController(itemJoinConfiguration, miniMessage, serverSelectorInventory, lobbySwitcherInventory, skullAPI),
+            new ItemJoinController(itemJoinConfig, miniMessage, serverSelectorInventory, lobbySwitcherInventory, skullAPI),
 
             // visibility
-            new VisibilityController(visibilityService, visibilityConfiguration, this)
+            new VisibilityController(visibilityService, visibilityConfig, this)
         ).forEach(listener -> this.getServer().getPluginManager().registerEvents(listener, this));
 
 

@@ -1,12 +1,10 @@
 package com.eternalcode.lobby.feature.itemjoin;
 
-import net.dzikoysk.cdn.entity.Contextual;
 import org.bukkit.Material;
 
 import java.util.Collections;
 import java.util.List;
 
-@Contextual
 public class ItemJoin {
 
     public String name;

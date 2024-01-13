@@ -11,8 +11,6 @@ import java.util.List;
 
 public final class AdventureLegacyColor {
 
-    public static final GsonComponentSerializer GSON_SERIALIZER = GsonComponentSerializer.gson();
-
     public static final TextComponent RESET_ITEM = Component.text().decoration(TextDecoration.ITALIC, false).build();
 
     public static final LegacyComponentSerializer SECTION_SERIALIZER = LegacyComponentSerializer.builder()
@@ -33,9 +31,5 @@ public final class AdventureLegacyColor {
 
     public static Component component(String text) {
         return AMPERSAND_SERIALIZER.deserialize(text);
-    }
-
-    public static List<Component> component(Iterable<String> texts) {
-        return PandaStream.of(texts).map(AdventureLegacyColor::component).toList();
     }
 }

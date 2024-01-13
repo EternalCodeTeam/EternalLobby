@@ -7,7 +7,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import panda.std.Option;
-import panda.utilities.text.Formatter;
 import com.eternalcode.lobby.configuration.implementation.PluginConfiguration;
 import com.eternalcode.lobby.util.RandomUtil;
 
@@ -35,13 +34,13 @@ public class PlayerQuitListener implements Listener {
 
         Option<String> message = RandomUtil.randomElement(this.pluginConfiguration.leaveMessage);
 
-        Formatter formatter = new Formatter()
-            .register("{PLAYER}", player.getName());
-
         if (message.isEmpty()) {
             return;
         }
 
-        this.audience.all().sendMessage(this.miniMessage.deserialize(formatter.format(message.get())));
+        String quitMessage = message.get()
+            .replace("{PLAYER}", player.getName());
+
+        this.audience.all().sendMessage(this.miniMessage.deserialize(quitMessage));
     }
 }

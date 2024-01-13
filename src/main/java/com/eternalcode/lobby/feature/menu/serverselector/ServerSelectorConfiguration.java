@@ -1,48 +1,42 @@
 package com.eternalcode.lobby.feature.menu.serverselector;
 
-import com.eternalcode.lobby.configuration.ReloadableConfig;
 import com.eternalcode.lobby.feature.menu.ItemServerConfiguration;
-import net.dzikoysk.cdn.entity.Contextual;
-import net.dzikoysk.cdn.entity.Description;
-import net.dzikoysk.cdn.source.Resource;
-import net.dzikoysk.cdn.source.Source;
+import eu.okaeri.configs.OkaeriConfig;
+import eu.okaeri.configs.annotation.Comment;
+import eu.okaeri.configs.annotation.NameModifier;
+import eu.okaeri.configs.annotation.NameStrategy;
+import eu.okaeri.configs.annotation.Names;
 import org.bukkit.Material;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ServerSelectorConfiguration implements ReloadableConfig {
+@Names(modifier = NameModifier.TO_LOWER_CASE, strategy = NameStrategy.HYPHEN_CASE)
+public class ServerSelectorConfiguration extends OkaeriConfig {
 
-    @Description({
+    @Comment({
         "# ",
         "# Server selector configuration",
         "# "
     })
     public Settings settings = new Settings();
 
-    @Override
-    public Resource resource(File folder) {
-        return Source.of(folder, "server-selector.yml");
-    }
-
-    @Contextual
-    public static class Settings {
+    public static class Settings extends OkaeriConfig {
         public FillSettings fill = new FillSettings();
 
-        @Description({
+        @Comment({
             "# Title of the lobby server selector"
         })
         public String guiTitle = "Wybór trybu:";
 
-        @Description({
+        @Comment({
             " ",
             "# Rows of the lobby server selector"
         })
         public int guiRows = 3;
 
-        @Description({
+        @Comment({
             " ",
             "# Items of the lobby server selector"
         })
@@ -51,9 +45,8 @@ public class ServerSelectorConfiguration implements ReloadableConfig {
             "creative", new ItemServerConfiguration("Creative", 13, Material.BRICK, new ArrayList<>(), "creative", true, "none"),
             "spectator", new ItemServerConfiguration("Spectator", 15, Material.DRAGON_EGG, new ArrayList<>(), "budowlany", true, "none"));
 
-        @Contextual
-        public static class FillSettings {
-            @Description({
+        public static class FillSettings extends OkaeriConfig {
+            @Comment({
                 " ",
                 "# Fill item options"
             })

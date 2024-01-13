@@ -12,7 +12,7 @@ enum ImageChar {
         this.imageChar = imageChar;
     }
 
-    public char getChar() {
+    public char getImageChar() {
         return this.imageChar;
     }
 }

@@ -1,20 +1,14 @@
 package com.eternalcode.lobby.configuration.implementation;
 
-import net.dzikoysk.cdn.source.Resource;
-import net.dzikoysk.cdn.source.Source;
-import com.eternalcode.lobby.configuration.ReloadableConfig;
 import com.eternalcode.lobby.position.Position;
+import eu.okaeri.configs.OkaeriConfig;
+import eu.okaeri.configs.annotation.NameModifier;
+import eu.okaeri.configs.annotation.NameStrategy;
+import eu.okaeri.configs.annotation.Names;
 
-import java.io.File;
-
-public class LocationConfiguration implements ReloadableConfig {
+@Names(modifier = NameModifier.TO_LOWER_CASE, strategy = NameStrategy.HYPHEN_CASE)
+public class LocationConfiguration extends OkaeriConfig {
 
     public Position lobby = new Position(0, 0, 0, 0.0f, 0.0f, Position.NONE_WORLD);
 
-    public Position personalCharacter = new Position(0, 0, 0, 0.0f, 0.0f, Position.NONE_WORLD);
-
-    @Override
-    public Resource resource(File folder) {
-        return Source.of(folder, "locations.yml");
-    }
 }

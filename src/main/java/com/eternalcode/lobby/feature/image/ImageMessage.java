@@ -37,8 +37,8 @@ class ImageMessage {
         lines = toImageMessage(chatColors, imgChar);
     }
 
-    ImageMessage(ChatColor[][] chatColors, char ImageChar) {
-        lines = toImageMessage(chatColors, ImageChar);
+    ImageMessage(ChatColor[][] chatColors, char imageChar) {
+        lines = toImageMessage(chatColors, imageChar);
     }
 
     ImageMessage(String... imageLines) {
@@ -59,7 +59,7 @@ class ImageMessage {
             StringBuilder line = new StringBuilder();
             for (Object[] chatColors : colors) {
                 Object color = chatColors[i];
-                line.append((color != null) ? chatColors[i].toString() + imgChar : ImageChar.TRANSPARENT_CHAT.getChar());
+                line.append((color != null) ? chatColors[i].toString() + imgChar : ImageChar.TRANSPARENT_CHAT.getImageChar());
             }
             lines[i] = line.toString() + ChatColor.RESET;
 

@@ -1,90 +1,61 @@
 package com.eternalcode.lobby.configuration.implementation;
 
-import com.eternalcode.lobby.configuration.ReloadableConfig;
 import com.eternalcode.lobby.delay.DelaySettings;
-import net.dzikoysk.cdn.entity.Contextual;
-import net.dzikoysk.cdn.entity.Description;
-import net.dzikoysk.cdn.source.Resource;
-import net.dzikoysk.cdn.source.Source;
+import eu.okaeri.configs.OkaeriConfig;
+import eu.okaeri.configs.annotation.Comment;
+import eu.okaeri.configs.annotation.NameModifier;
+import eu.okaeri.configs.annotation.NameStrategy;
+import eu.okaeri.configs.annotation.Names;
 import org.bukkit.Sound;
 
-import java.io.File;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
-public class PluginConfiguration implements ReloadableConfig {
+@Names(modifier = NameModifier.TO_LOWER_CASE, strategy = NameStrategy.HYPHEN_CASE)
+public class PluginConfiguration extends OkaeriConfig {
 
     public DoubleJumpSettings doubleJump = new DoubleJumpSettings();
-
-    @Contextual
-    public static class DoubleJumpSettings implements DelaySettings {
-        @Description({
-            " ",
-            "# Double jump settings",
-        })
-        public boolean doubleJumpEnabled = true;
-        public Sound doubleJumpSound = Sound.ENTITY_BAT_TAKEOFF;
-        public Float doubleJumpPower = 1.3F;
-        public Float doubleJumpPowerY = 2.3F;
-        public Float doubleJumpVolume = 1.8F;
-        public Float doubleJumpPitch = 1.0F;
-
-        @Description({ " ", "# Additional double jump settings", })
-        public Duration doubleJumpDelay = Duration.ofSeconds(1);
-
-        @Override
-        public Duration delay() {
-            return this.doubleJumpDelay;
-        }
-    }
-
-    @Description({
+    @Comment({
         " ",
         "# URL To the api returning the player's head, in case of failure you can change",
         "# Variables: {PLAYER}, {UUID}",
     })
     public String apiUrl = "https://minepic.org/avatar/8/{UUID}";
-    @Description({
+    @Comment({
         " ",
         "# The height at which a player is teleported to spawn",
     })
     public int voidTeleportHeight = -5;
-
     public String voidTeleportMessage = "<red>Wyszedłeś poza granicę mapy!";
-    @Description({
+    @Comment({
         " ",
         "# Sends the audio below to everyone on the server when someone sends something in chat",
     })
     public boolean playerChatSoundEnabled = true;
     public Float playerChatVolume = 1.8F;
     public Float playerChatPitch = 1.0F;
-
     public Sound playerChatSound = Sound.ENTITY_ITEM_PICKUP;
-    @Description({
+    @Comment({
         " ",
         "# Sends a sound when the player changes the slot on the taskbar",
     })
     public boolean playerHeldItemEnabled = true;
     public Float playerHeldItemVolume = 1.8F;
     public Float playerHeldItemPitch = 1.0F;
-
     public Sound playerHeldItemSound = Sound.BLOCK_NOTE_BLOCK_HAT;
-
-    @Description({
+    @Comment({
         " ",
         "# Options for the message displayed when entering the server",
     })
     public boolean enableWelcomeMessage = true;
     public boolean welcomeMessageHeadDisplay = true;
     public boolean cleanAtJoin = true;
-
     public List<String> messageAfterJoin = List.of(
         "Exampelo Configu messagu",
         "Exampela masaga from configa message 2"
     );
-
-    @Description({
+    @Comment({
         " ",
         "# Join message settings",
     })
@@ -115,8 +86,7 @@ public class PluginConfiguration implements ReloadableConfig {
         "<dark_gray>[<b><color:#0dff00>+</color></b>]</dark_gray> <color:#0dff00>{PLAYER}</color> <gray>pojawił się, przywitajmy go wszyscy!</gray>",
         "<dark_gray>[<b><color:#0dff00>+</color></b>]</dark_gray> <color:#0dff00>{PLAYER}</color> <gray>zajrzał do nas na serwer!</gray>"
     );
-
-    @Description({
+    @Comment({
         " ",
         "# Leave message settings",
     })
@@ -126,8 +96,24 @@ public class PluginConfiguration implements ReloadableConfig {
         "Bye {PLAYER}"
     );
 
-    @Override
-    public Resource resource(File folder) {
-        return Source.of(folder, "configuration.yml");
+    public static class DoubleJumpSettings extends OkaeriConfig implements DelaySettings {
+        @Comment({
+            " ",
+            "# Double jump settings",
+        })
+        public boolean doubleJumpEnabled = true;
+        public Sound doubleJumpSound = Sound.ENTITY_BAT_TAKEOFF;
+        public Float doubleJumpPower = 1.3F;
+        public Float doubleJumpPowerY = 2.3F;
+        public Float doubleJumpVolume = 1.8F;
+        public Float doubleJumpPitch = 1.0F;
+
+        @Comment({ " ", "# Additional double jump settings", })
+        public Duration doubleJumpDelay = Duration.ofSeconds(1);
+
+        @Override
+        public Duration delay() {
+            return this.doubleJumpDelay;
+        }
     }
 }

@@ -5,8 +5,6 @@ import com.eternalcode.lobby.adventure.AdventureLegacyColorProcessor;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.components.GuiAction;
 import dev.triumphteam.gui.guis.GuiItem;
-import net.dzikoysk.cdn.entity.Contextual;
-import net.dzikoysk.cdn.entity.Exclude;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
@@ -16,10 +14,9 @@ import org.bukkit.inventory.ItemFlag;
 import java.util.ArrayList;
 import java.util.List;
 
-@Contextual
 public class VisibilityItem {
 
-    @Exclude
+
     private final MiniMessage miniMessage = MiniMessage.builder()
         .postProcessor(new AdventureLegacyColorProcessor())
         .build();
